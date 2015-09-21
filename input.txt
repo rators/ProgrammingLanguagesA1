@@ -1,0 +1,40 @@
+public class quickSortSelf{
+    private static Creature array[];
+
+    quickSortSelf(){
+    }
+    public static void sortArray(Creature[] array, int population){
+        quickSortSelf.array = array;
+        quickSort(0, population - 1);
+    }
+    public static void quickSort(int left, int right){
+        if (left >= right) {
+            return;
+        }
+        Creature pivot = array[right];
+        int partition = partition(left, right, pivot);
+        quickSort(left, partition - 1);
+        quickSort(partition + 1, right);
+    }
+    public static void swap(int left, int right){
+        Creature temp = array[left];
+        array[left] = array[right];
+        array[right] = temp;
+    }
+    public static int partition(int left, int right, Creature pivot){
+        int leftPosit = left - 1;
+        int rightPosit = right;
+        while (leftPosit < rightPosit){
+            while (array[++leftPosit].getName().compareTo(pivot.getName()) < 0);
+            while (rightPosit > 0 && array[--rightPosit].getName().compareTo(pivot.getName()) > 0) ;
+            if (leftPosit >= rightPosit){
+                break;
+            }
+            else{
+                swap(leftPosit, rightPosit);
+            }
+        }
+        swap(leftPosit, right);
+        return leftPosit;
+    }
+}
